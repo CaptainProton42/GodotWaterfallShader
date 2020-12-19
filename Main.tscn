@@ -28,13 +28,12 @@ viewport_path = NodePath("Viewport")
 resource_local_to_scene = true
 shader = ExtResource( 5 )
 shader_param/view_cmap_value = false
-shader_param/noise_amplitude = 0.04
+shader_param/displacement_noise = 0.04
+shader_param/texture_noise = 0.5
 shader_param/noise_scale = Vector2( 0.1, 1 )
 shader_param/water_speed = 3.0
-shader_param/rim_thickness = 0.1
-shader_param/noise_multiplicator = 0.5
+shader_param/rim_thickness = 0.05
 shader_param/spray_distance = 0.35
-shader_param/streak_width = 0.03
 shader_param/world_pos = SubResource( 4 )
 shader_param/noise_tex = ExtResource( 2 )
 shader_param/palette = ExtResource( 1 )
@@ -58,7 +57,7 @@ ambient_light_sky_contribution = 0.0
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00261843, 0, 0.00254548 )
 
 [node name="TestSphere" type="MeshInstance" parent="."]
-transform = Transform( 0.856357, -0.0142291, -0.516188, 0, 0.99962, -0.0275553, 0.516384, 0.0235971, 0.856032, 0.472505, 0.806943, 0.646857 )
+transform = Transform( 0.856357, -0.0142291, -0.516188, 0, 0.99962, -0.0275553, 0.516384, 0.0235971, 0.856032, 0.487785, 0.806943, 0.656071 )
 layers = 3
 mesh = SubResource( 1 )
 material/0 = ExtResource( 10 )

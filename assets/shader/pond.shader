@@ -18,7 +18,7 @@ void vertex() {
 }
 
 /* Signed distance field of a line segment.
-   From: https://www.iquilezles.org/www/articles/distfunctions2d/distfunctions2d.htm */
+   https://www.iquilezles.org/www/articles/distfunctions2d/distfunctions2d.htm */
 float sdSegment(vec2 p, vec2 a, vec2 b )
 {
     vec2 pa = p-a, ba = b-a;
