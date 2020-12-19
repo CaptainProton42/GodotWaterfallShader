@@ -1,0 +1,150 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://assets/textures/water.png" type="Texture" id=1]
+[ext_resource path="res://assets/textures/worley_noise.png" type="Texture" id=2]
+[ext_resource path="res://scripts/TestCube.gd" type="Script" id=3]
+[ext_resource path="res://scripts/TestSphere.gd" type="Script" id=4]
+[ext_resource path="res://assets/shader/waterfall.shader" type="Shader" id=5]
+[ext_resource path="res://assets/meshes/waterfall.obj" type="ArrayMesh" id=6]
+[ext_resource path="res://assets/materials/world_position_from_camera.tres" type="Material" id=7]
+[ext_resource path="res://assets/materials/pond.tres" type="Material" id=8]
+[ext_resource path="res://assets/materials/spray.tres" type="Material" id=9]
+[ext_resource path="res://assets/materials/canyon.tres" type="Material" id=10]
+[ext_resource path="res://assets/meshes/canyon.obj" type="ArrayMesh" id=11]
+
+[sub_resource type="SphereMesh" id=1]
+radius = 0.1
+height = 0.2
+
+[sub_resource type="CubeMesh" id=2]
+
+[sub_resource type="QuadMesh" id=3]
+
+[sub_resource type="ViewportTexture" id=4]
+flags = 4
+viewport_path = NodePath("Viewport")
+
+[sub_resource type="ShaderMaterial" id=5]
+resource_local_to_scene = true
+shader = ExtResource( 5 )
+shader_param/view_cmap_value = false
+shader_param/noise_amplitude = 0.04
+shader_param/noise_scale = Vector2( 0.1, 1 )
+shader_param/water_speed = 3.0
+shader_param/rim_thickness = 0.1
+shader_param/noise_multiplicator = 0.5
+shader_param/spray_distance = 0.35
+shader_param/streak_width = 0.03
+shader_param/world_pos = SubResource( 4 )
+shader_param/noise_tex = ExtResource( 2 )
+shader_param/palette = ExtResource( 1 )
+
+[sub_resource type="SphereMesh" id=6]
+radius = 0.08
+height = 0.2
+radial_segments = 10
+rings = 5
+
+[sub_resource type="PlaneMesh" id=7]
+
+[sub_resource type="Environment" id=8]
+background_mode = 1
+background_color = Color( 0.929412, 0.635294, 0.317647, 1 )
+background_energy = 0.0
+ambient_light_color = Color( 0.976471, 0.92549, 0.803922, 1 )
+ambient_light_sky_contribution = 0.0
+
+[node name="Spatial" type="Spatial"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00261843, 0, 0.00254548 )
+
+[node name="TestSphere" type="MeshInstance" parent="."]
+transform = Transform( 0.856357, -0.0142291, -0.516188, 0, 0.99962, -0.0275553, 0.516384, 0.0235971, 0.856032, 0.472505, 0.806943, 0.646857 )
+layers = 3
+mesh = SubResource( 1 )
+material/0 = ExtResource( 10 )
+script = ExtResource( 4 )
+
+[node name="TestCube" type="MeshInstance" parent="."]
+transform = Transform( 0.0686388, -0.0643448, -0.0829301, -0.0765025, 0.0371772, -0.0921638, 0.0718688, 0.101027, -0.018903, 0.466677, 0.490347, 0.300491 )
+layers = 3
+mesh = SubResource( 2 )
+material/0 = ExtResource( 10 )
+script = ExtResource( 3 )
+
+[node name="Viewport" type="Viewport" parent="."]
+size = Vector2( 200, 200 )
+hdr = false
+keep_3d_linear = true
+render_target_v_flip = true
+
+[node name="Camera" type="Camera" parent="Viewport"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0.5, 1.011, 0.5 )
+cull_mask = 524290
+projection = 1
+near = 0.01
+
+[node name="WorldPositionFromCamera" type="MeshInstance" parent="Viewport"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0.5, 1, 0.5 )
+layers = 524288
+mesh = SubResource( 3 )
+material/0 = ExtResource( 7 )
+
+[node name="Waterfall" type="MeshInstance" parent="."]
+layers = 2
+mesh = ExtResource( 6 )
+material/0 = SubResource( 5 )
+
+[node name="Spray" type="Spatial" parent="."]
+
+[node name="MeshInstance" type="MeshInstance" parent="Spray"]
+transform = Transform( 1.58277, -0.974485, -0.104295, 0.786148, 1.38071, -0.970198, 0.58521, 0.780827, 1.5854, 0.572764, -0.00759208, 0.0781235 )
+mesh = SubResource( 6 )
+material/0 = ExtResource( 9 )
+
+[node name="MeshInstance2" type="MeshInstance" parent="Spray"]
+transform = Transform( 1.31905, -0.812114, -0.0869172, 0.655157, 1.15065, -0.80854, 0.4877, 0.650723, 1.32124, 0.455899, -0.00759208, 0.339912 )
+mesh = SubResource( 6 )
+material/0 = ExtResource( 9 )
+
+[node name="MeshInstance3" type="MeshInstance" parent="Spray"]
+transform = Transform( 1.58343, -0.974888, -0.104338, 0.786472, 1.38128, -0.970598, 0.585452, 0.781149, 1.58606, 0.433146, 0.0661699, 0.619622 )
+mesh = SubResource( 6 )
+material/0 = ExtResource( 9 )
+
+[node name="MeshInstance5" type="MeshInstance" parent="Spray"]
+transform = Transform( 1.06648, -0.656616, -0.0702749, 0.529712, 0.930332, -0.653727, 0.394319, 0.526127, 1.06826, 0.423493, -0.0609972, 0.509478 )
+mesh = SubResource( 6 )
+material/0 = ExtResource( 9 )
+
+[node name="MeshInstance4" type="MeshInstance" parent="Spray"]
+transform = Transform( 1.58277, -0.974485, -0.104295, 0.786148, 1.38071, -0.970198, 0.58521, 0.780827, 1.5854, 0.401411, -0.00759208, 0.910454 )
+mesh = SubResource( 6 )
+material/0 = ExtResource( 9 )
+
+[node name="MeshInstance6" type="MeshInstance" parent="Spray"]
+transform = Transform( 1.06987, -0.6587, -0.070498, 0.531394, 0.933285, -0.655802, 0.395571, 0.527797, 1.07165, 0.341858, 0.141752, 0.264329 )
+mesh = SubResource( 6 )
+material/0 = ExtResource( 9 )
+
+[node name="Pond" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.170621, -0.035617, 0.525518 )
+layers = 2
+mesh = SubResource( 7 )
+material/0 = ExtResource( 8 )
+
+[node name="Canyon" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.226959, 0.0800791, -0.227539 )
+mesh = ExtResource( 11 )
+material/0 = ExtResource( 10 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( -0.877339, 2.22247e-07, -0.479871, -0.300003, 0.780485, 0.54849, 0.374532, 0.625175, -0.68475, 0, 2.00586, -0.831695 )
+light_color = Color( 1, 0.607843, 0, 1 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 8 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 0.513811, 0.473858, -0.715162, 0, 0.833616, 0.552344, 0.857904, -0.2838, 0.428321, -2.32369, 1.55168, 1.85905 )
+cull_mask = 524287
+fov = 60.0

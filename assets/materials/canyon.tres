@@ -1,0 +1,41 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=2]
+
+[ext_resource path="res://assets/textures/canyon.png" type="Texture" id=1]
+[ext_resource path="res://assets/textures/worley_noise.png" type="Texture" id=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type spatial;
+
+render_mode world_vertex_coords, specular_toon;
+
+uniform sampler2D noise_tex;
+uniform sampler2D palette;
+varying vec3 VERTEX_VAR;
+varying vec3 NORMAL_VAR;
+
+vec4 triplanar_texture(sampler2D p_sampler, vec3 p_weights, vec3 p_triplanar_pos) {
+	vec4 samp=vec4(0.0);
+	samp+= texture(p_sampler,p_triplanar_pos.xy) * p_weights.z;
+	samp+= texture(p_sampler,p_triplanar_pos.xz) * p_weights.y;
+	samp+= texture(p_sampler,p_triplanar_pos.zy * vec2(-1.0,1.0)) * p_weights.x;
+	return samp;
+}
+
+
+void vertex() {
+	VERTEX_VAR = VERTEX;
+	NORMAL_VAR = NORMAL;
+}
+
+void fragment() {
+	vec3 noise = texture(noise_tex, vec2(VERTEX_VAR.y, 0.5f)).rgb;
+	
+	ALBEDO.r = noise.r;
+	ALBEDO.r -= smoothstep(0.8f, 0.95f, NORMAL_VAR.y);
+	ALBEDO = texture(palette, vec2(ALBEDO.r, 0.5f)).rgb;
+}"
+
+[resource]
+shader = SubResource( 1 )
+shader_param/noise_tex = ExtResource( 2 )
+shader_param/palette = ExtResource( 1 )

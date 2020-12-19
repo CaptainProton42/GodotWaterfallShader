@@ -1,0 +1,18 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type spatial;
+
+render_mode unshaded;
+
+uniform vec4 color : hint_color;
+
+void fragment() {
+	ALBEDO = color.rgb;
+	float r = length(UV - vec2(0.5f));
+	//ALPHA = smoothstep(0.5f, 0.4f, r);
+}"
+
+[resource]
+shader = SubResource( 1 )
+shader_param/color = Color( 0.827451, 0.913725, 0.47451, 1 )

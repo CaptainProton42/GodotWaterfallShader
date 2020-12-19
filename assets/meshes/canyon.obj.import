@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/canyon.obj-3de2b71f318815b9e85a299da877633f.mesh"
+
+[deps]
+
+files=[ "res://.import/canyon.obj-3de2b71f318815b9e85a299da877633f.mesh" ]
+
+source_file="res://assets/meshes/canyon.obj"
+dest_files=[ "res://.import/canyon.obj-3de2b71f318815b9e85a299da877633f.mesh", "res://.import/canyon.obj-3de2b71f318815b9e85a299da877633f.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

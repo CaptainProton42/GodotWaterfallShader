@@ -1,0 +1,15 @@
+[gd_resource type="ShaderMaterial" load_steps=5 format=2]
+
+[ext_resource path="res://assets/shader/waterfall.shader" type="Shader" id=1]
+[ext_resource path="res://assets/textures/water.png" type="Texture" id=2]
+[ext_resource path="res://assets/textures/worley_noise.png" type="Texture" id=3]
+
+[sub_resource type="ViewportTexture" id=1]
+viewport_path = NodePath("Viewport")
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource( 1 )
+shader_param/world_pos = SubResource( 1 )
+shader_param/noise_tex = ExtResource( 3 )
+shader_param/palette = ExtResource( 2 )
